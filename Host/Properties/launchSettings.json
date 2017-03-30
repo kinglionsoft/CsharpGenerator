@@ -2,7 +2,7 @@
   "profiles": {
     "Host": {
       "commandName": "Project",
-      "commandLineArgs": "g -t mysql -o out -n test_namespace -d test -c \"server=172.16.20.90;database=test;uid=root;pwd=1234;charset='utf8'\""
+      "commandLineArgs": "g -t mssql -o out -n test_namespace -d DataChannel -l 1 -c \"Data Source=.;Initial Catalog=DataChannel;Integrated Security=True\""
     }
   }
 }

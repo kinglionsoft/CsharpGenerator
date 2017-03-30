@@ -20,6 +20,7 @@ namespace RepositoryUtils
             this._option = option;
             Logger.Level = option.LoggerLevel;
 
+            // 硬编码；也可以将数据库实现分离到单独的程序集，然后反射装载
             switch (_option.DbType.ToLower())
             {
                 case "mysql":
@@ -57,10 +58,16 @@ namespace RepositoryUtils
             string intent;
             writer.WriteLine("using System;");
             writer.WriteLine("using System.Text;" + Environment.NewLine);
-            writer.WriteLine($"namespace {this._option.NameSpace}");
-            intent = WriteBracket(writer, EBracket.Left, ref tabsCount); // 命名空间开始
-            writer.WriteLine($"{intent}public class {table.Name}");
-            intent = WriteBracket(writer, EBracket.Left, ref tabsCount);// 类开始
+            writer.WriteLine($"namespace {this._option.NameSpace}");// 命名空间开始
+            intent = WriteBracket(writer, EBracket.Left, ref tabsCount);
+
+            var classLine = $"{intent}public class {table.Name}";
+            if (!string.IsNullOrEmpty(this._option.Parent))
+            {
+                classLine += ": " + this._option.Parent;
+            }
+            writer.WriteLine(classLine);// 类开始
+            intent = WriteBracket(writer, EBracket.Left, ref tabsCount);
 
             foreach (var col in table.Columns)
             {
@@ -72,6 +79,9 @@ namespace RepositoryUtils
                     case "nvarchar":
                     case "longtext":
                     case "text":
+                    case "sysname":
+                    case "nchar":
+                    case "ntext":
                         type = "string";
                         break;
                     case "date":
@@ -83,6 +93,7 @@ namespace RepositoryUtils
                         break;
                     case "int":
                     case "tinyint":
+                    case "smallint":
                         type = col.CanBeNull ? "int?" : "int";
                         break;
                     case "bigint":
@@ -92,10 +103,16 @@ namespace RepositoryUtils
                         type = col.CanBeNull ? "double?" : "double";
                         break;
                     case "float":
+                    case "real":
                         type = col.CanBeNull ? "float?" : "float";
                         break;
                     case "deciaml":
+                    case "numberic":
                         type = col.CanBeNull ? "deciaml?" : "deciaml";
+                        break;
+                    case "varbinary":
+                    case "binary":
+                        type = "byte[]";
                         break;
                     default:
                         Logger.Log($"{col.DataType} 无法转换为C#对应的类型，将直接作为C#类型。", ELoggerLevel.Warn);

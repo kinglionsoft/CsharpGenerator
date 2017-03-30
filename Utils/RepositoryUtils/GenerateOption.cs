@@ -20,5 +20,8 @@ namespace RepositoryUtils
         [Option('d',"dbname", Required = true, HelpText = "指定数据库名称")]
         public string DbName{ get; set; }
 
+        [Option('p', "parent", Required = false, HelpText = "指定父类")]
+        public string Parent { get; set; }
+
     }
 }

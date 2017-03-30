@@ -18,7 +18,17 @@ namespace RepositoryUtils.MsSQL
         /// <returns></returns>
         protected override string GeneratorSelectText()
         {
-            return "";
+            return
+@"select 
+	a.name			TableName,
+	b.name			ColumnName,
+	t.name			DataType,
+	b.column_id		Position,
+	b.is_nullable	CanBeNull,
+	b.max_length	CharLength
+from sys.tables a inner join sys.columns b on a.object_id=b.object_id
+inner join sys.types t on b.system_type_id=t.system_type_id
+where a.type='U'";
         }
     }
 }
