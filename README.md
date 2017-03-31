@@ -34,3 +34,9 @@ public enum ELoggerLevel
     All = 6,
 }
 ```
+
+## Acknowledgements
+1. [CommandLine](https://github.com/gsscoder/commandline).
+> The Command Line Parser Library offers CLR applications a clean and concise API for manipulating command line arguments and related tasks, such as defining switches, options and verb commands. It allows you to display a help screen with a high degree of customization and a simple way to report syntax errors to the end user.
+2. [Pomelo.Data.MySql](https://github.com/PomeloFoundation/Pomelo.Data.MySql) by [PomeloFoundation](https://github.com/PomeloFoundation)
+> Contains MySQL implementations of the System.Data.Common(Both .NET Core and .NET Framework) interfaces.
