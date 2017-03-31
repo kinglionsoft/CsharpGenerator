@@ -1,5 +1,5 @@
 ﻿# Repository Utils
-Generate entity classes from exsited database, surpported database includes: MsSQL, MySQL.
+Generate entity classes from exsited database, and support following databases: MsSQL, MySQL.
 ## Usages
 ``` bash
 CsharpGenerator g [options]

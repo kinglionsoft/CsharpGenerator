@@ -2,7 +2,7 @@
 
 
 ## Features
-1. [x] [RepositoryUtils](./Utils/RepositoryUtils/README.MD): Generate entity classes from exsited database, and support following database by now: MsSQL, MySQL.
+1. [x] [RepositoryUtils](https://github.com/kinglionsoft/CsharpGenerator/tree/master/Utils/RepositoryUtils): Generate entity classes from exsited database, and support following databases by now: MsSQL, MySQL.
 
 ## Usages
 > For !windows, build source code and run: dotnet CsharpGenerator.dll [command] [options].
