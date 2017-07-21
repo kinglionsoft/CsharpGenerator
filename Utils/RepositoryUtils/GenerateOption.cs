@@ -1,4 +1,5 @@
-﻿using CommandLine;
+﻿using System.Collections.Generic;
+using CommandLine;
 
 namespace RepositoryUtils
 {
@@ -22,6 +23,9 @@ namespace RepositoryUtils
 
         [Option('p', "parent", Required = false, HelpText = "指定父类")]
         public string Parent { get; set; }
+
+        [Option('i', "ignore", Required = false,HelpText = "忽略指定的列名，多个列使用:分隔")]
+        public IList<string> Ignores { get; set; }
 
     }
 }

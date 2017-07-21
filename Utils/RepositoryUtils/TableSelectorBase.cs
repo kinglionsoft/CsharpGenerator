@@ -1,19 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Data.Common;
+using System.Reflection.Metadata.Ecma335;
 using RepositoryUtils.Common;
 
 namespace RepositoryUtils
 {
     internal abstract class TableSelectorBase : ITableSelector
     {
-        protected readonly string ConnectionString;
+        protected readonly GenerateOption Option;
 
-        protected readonly string DbName;
-
-        protected TableSelectorBase(string connectionString, string dbName)
+        protected TableSelectorBase(GenerateOption option)
         {
-            ConnectionString = connectionString;
-            this.DbName = dbName;
+            Option = option;
         }
 
         /// <summary>
@@ -43,13 +41,19 @@ namespace RepositoryUtils
                 while (reader.Read())
                 {
                     var tableName = reader["TableName"].ToString();
+                    var columnName = reader["ColumnName"].ToString();
+                    if (this.Option.Ignores == null || this.Option.Ignores.Contains(columnName))
+                    {
+                        continue;
+                    }
                     var column = new Column
                     {
-                        Name = reader["ColumnName"].ToString(),
+                        Name = columnName,
                         DataType = reader["DataType"].ToString(),
                         Position = int.Parse(reader["Position"].ToString()),
                         CanBeNull = reader["CanBeNull"].ToString()=="1",
-                        CharLength =int.Parse(reader["CharLength"].ToString())
+                        CharLength =int.Parse(reader["CharLength"].ToString()),
+                        Comment = reader["Comment"].ToString()
                     };
                     if (result.ContainsKey(tableName))
                     {

@@ -24,10 +24,10 @@ namespace RepositoryUtils
             switch (_option.DbType.ToLower())
             {
                 case "mysql":
-                    _tableSelector = new MySQL.MySqlTableSelector(_option.ConnectionString, _option.DbName);
+                    _tableSelector = new MySQL.MySqlTableSelector(_option);
                     break;
                 case "mssql":
-                    _tableSelector = new MsSQL.MsSqlTableSelector(_option.ConnectionString, _option.DbName);
+                    _tableSelector = new MsSQL.MsSqlTableSelector(_option);
                     break;
                 default:
                     throw new Exception("暂不支持数据库：" + _option.DbType);
@@ -55,11 +55,10 @@ namespace RepositoryUtils
         {
             Logger.Log($"生成实体类：{table.Name}", ELoggerLevel.Debug);
             var tabsCount = 0;
-            string intent;
             writer.WriteLine("using System;");
             writer.WriteLine("using System.Text;" + Environment.NewLine);
             writer.WriteLine($"namespace {this._option.NameSpace}");// 命名空间开始
-            intent = WriteBracket(writer, EBracket.Left, ref tabsCount);
+            var intent = WriteBracket(writer, EBracket.Left, ref tabsCount);
 
             var classLine = $"{intent}public class {table.Name}";
             if (!string.IsNullOrEmpty(this._option.Parent))
@@ -106,9 +105,9 @@ namespace RepositoryUtils
                     case "real":
                         type = col.CanBeNull ? "float?" : "float";
                         break;
-                    case "deciaml":
+                    case "decimal":
                     case "numberic":
-                        type = col.CanBeNull ? "deciaml?" : "deciaml";
+                        type = col.CanBeNull ? "decimal?" : "decimal";
                         break;
                     case "varbinary":
                     case "binary":
@@ -119,6 +118,9 @@ namespace RepositoryUtils
                         type = col.DataType;
                         break;
                 }
+                writer.WriteLine($"{intent}/// <summary>");
+                writer.WriteLine($"{intent}/// {col.Comment}");
+                writer.WriteLine($"{intent}/// </summary>");
                 writer.WriteLine($"{intent}public {type} {col.Name} {{ get; set;}}");
             }
             WriteBracket(writer, EBracket.Right, ref tabsCount);// 类结束

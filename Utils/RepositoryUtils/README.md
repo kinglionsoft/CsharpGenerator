@@ -20,6 +20,8 @@ options:
 
   -l, --loggerlevel         (Default: 2) 设置日志输出级别, 0-6
 
+  -i, --ignore				忽略指定的列名，多个列使用:分隔
+
   --help                    Display this help screen.
 
   --version                 Display version information.

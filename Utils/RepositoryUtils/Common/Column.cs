@@ -29,5 +29,10 @@
         /// 如果是字段类型，显示字段长度
         /// </summary>
         public int CharLength { get; set; }
+
+        /// <summary>
+        /// 字段备注
+        /// </summary>
+        public string Comment { get; set; }
     }
 }
