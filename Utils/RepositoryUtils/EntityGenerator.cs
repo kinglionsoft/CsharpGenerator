@@ -121,7 +121,7 @@ namespace RepositoryUtils
                 writer.WriteLine($"{intent}/// <summary>");
                 writer.WriteLine($"{intent}/// {col.Comment}");
                 writer.WriteLine($"{intent}/// </summary>");
-                writer.WriteLine($"{intent}public {type} {col.Name} {{ get; set;}}");
+                writer.WriteLine($"{intent}public {type} {col.Name} {{ get; set; }}");
             }
             WriteBracket(writer, EBracket.Right, ref tabsCount);// 类结束
             WriteBracket(writer, EBracket.Right, ref tabsCount); // 命名空间结束
