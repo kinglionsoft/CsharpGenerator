@@ -2,7 +2,7 @@
   "profiles": {
     "Host": {
       "commandName": "Project",
-      "commandLineArgs": "g -t mssql -o out -n test_namespace -d DataChannel -l 1 -c \"Data Source=.;Initial Catalog=DataChannel;Integrated Security=True\""
+      "commandLineArgs": "g -t mysql -o out -n \"YK.ParkingSys.Entity.Coupon\" -d parking -l 1 -c \"server=10.1.112.19;port=3306;database=parking;uid=root;password=Yk@12345;Old Guids=true;Allow User Variables=True;charset='utf8'\""
     }
   }
 }
