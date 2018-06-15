@@ -85,6 +85,7 @@ namespace RepositoryUtils
                         break;
                     case "date":
                     case "datetime":
+                    case "timestamp":
                         type = col.CanBeNull ? "DateTime?" : "DateTime";
                         break;
                     case "bit":
